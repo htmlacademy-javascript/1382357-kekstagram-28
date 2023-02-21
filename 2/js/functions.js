@@ -1,64 +1,54 @@
-function checkingTheLength (input) {
-  if (input.length >= 15) {
+function checkingTheLength (input, maxLength) {
+  if (input.length <= maxLength) {
     return true;
   }
   return false;
 }
 
-// console.log(checkingTheLength('I would like to go shopping'));
-// console.log(checkingTheLength('Hello'));
-// console.log(checkingTheLength('Me and you will'));
+console.log(checkingTheLength('проверяемая строка', 20));
+console.log(checkingTheLength('проверяемая строка', 18));
+console.log(checkingTheLength('проверяемая строка', 10));
 
-function checkingPalindrome (string) {
-  return string.toLowerCase().replace(/\s/g,'').split('').reverse().join('') === string.toLowerCase().replace(/\s/g,'');
+function checkingPalindrome (input) {
+  let text = input.toLowerCase().replace(/\s/g,'').split('').reverse().join('');
+  return text === input.toLowerCase().replace(/\s/g,'');
 }
 
-// console.log(checkingPalindrome('топот'));
-// console.log(checkingPalindrome('ДовОд'));
-// console.log(checkingPalindrome('Кекс'));
-// console.log(checkingPalindrome('Лёша на полке клопа нашёл '));
+console.log(checkingPalindrome('топот'));
+console.log(checkingPalindrome('ДовОд'));
+console.log(checkingPalindrome('Кекс'));
+console.log(checkingPalindrome('Лёша на полке клопа нашёл '));
 
 
-function changingStringToNumber (string) {
-  let newString = '';
-  for (let i = 0; i <= string.length; i++) {
-    if (string[i] !== isNaN) {
-      newString = string.replace(/\D/g, '');
-      if (newString === '') {
-        return NaN;
-      } return newString;
-    }
+function changingStringToNumber (input) {
+  let newInput = '';
+  if (typeof input !== Object) {
+    newInput = input.replace(/\D/g, '');
+    if (newInput === '') {
+      return NaN;
+    } return parseInt(newInput, 10);
   }
 }
 
-// console.log(changingStringToNumber('2023 год'));
-// console.log(changingStringToNumber('ECMAScript 2022'));
-// console.log(changingStringToNumber('1 кефир, 0.5 батона'));
-// console.log(changingStringToNumber('а я томат'));
+console.log(changingStringToNumber('2023 год'));
+console.log(changingStringToNumber('ECMAScript 2022'));
+console.log(changingStringToNumber('1 кефир, 0.5 батона'));
+console.log(changingStringToNumber('агент 007'));
+console.log(changingStringToNumber('а я томат'));
 
-function addToString (string, minLength, addSymbol) {
-  if(string.length < minLength) {
-    let addLength = minLength - string.length;
-    let newString = '';
-    if(addSymbol.length <= addLength) {
-      if(addSymbol.length > 1) {
-        newString = addSymbol.slice(0, (addLength - addSymbol.length)) + addSymbol + string;
-        return newString;
-      }
-      for(let i = 0; i < addLength; i++) {
-        newString += addSymbol;
-      }
-      return newString + string;
-    } else if (addSymbol.length > addLength) {
-      newString = addSymbol.slice(0, addLength);
-      return newString + string;
-    }
+function addToString (input, minLength, addSymbol) {
+  const addLength = minLength - input.length;
+  if(addLength <= 0) {
+    return input;
   }
-  return string;
+
+  const tempSymbol = addSymbol.slice(0, addLength % addSymbol.length);
+  const tempRepeat = addSymbol.repeat(addLength / addSymbol.length);
+  return tempSymbol + tempRepeat + input;
 }
 
-// console.log(addToString('1', 2, '0'));
-// console.log(addToString('1', 4, '0'));
-// console.log(addToString('q', 4, 'werty'));
-// console.log(addToString('q', 4, 'we'));
-// console.log(addToString('qwerty', 4, '0'));
+console.log(addToString('1', 2, '0')); //01
+console.log(addToString('1', 4, '0')); //0001
+console.log(addToString('q', 4, 'werty')); //werq
+console.log(addToString('q', 4, 'we')); //wweq
+console.log(addToString('qwerty', 4, '0')); //qwerty
