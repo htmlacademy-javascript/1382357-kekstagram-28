@@ -5,19 +5,19 @@ function checkingTheLength (input, maxLength) {
   return false;
 }
 
-console.log(checkingTheLength('проверяемая строка', 20));
-console.log(checkingTheLength('проверяемая строка', 18));
-console.log(checkingTheLength('проверяемая строка', 10));
+checkingTheLength('проверяемая строка', 20);
+// console.log(checkingTheLength('проверяемая строка', 18));
+// console.log(checkingTheLength('проверяемая строка', 10));
 
 function checkingPalindrome (input) {
-  let text = input.toLowerCase().replace(/\s/g,'').split('').reverse().join('');
-  return text === input.toLowerCase().replace(/\s/g,'');
+  const text = input.toLowerCase().replace(/\s/g,'');
+  return text === text.split('').reverse().join('');
 }
 
-console.log(checkingPalindrome('топот'));
-console.log(checkingPalindrome('ДовОд'));
-console.log(checkingPalindrome('Кекс'));
-console.log(checkingPalindrome('Лёша на полке клопа нашёл '));
+checkingPalindrome('топот');
+// console.log(checkingPalindrome('ДовОд'));
+// console.log(checkingPalindrome('Кекс'));
+// console.log(checkingPalindrome('Лёша на полке клопа нашёл '));
 
 
 function changingStringToNumber (input) {
@@ -30,11 +30,11 @@ function changingStringToNumber (input) {
   }
 }
 
-console.log(changingStringToNumber('2023 год'));
-console.log(changingStringToNumber('ECMAScript 2022'));
-console.log(changingStringToNumber('1 кефир, 0.5 батона'));
-console.log(changingStringToNumber('агент 007'));
-console.log(changingStringToNumber('а я томат'));
+changingStringToNumber('2023 год');
+// console.log(changingStringToNumber('ECMAScript 2022'));
+// console.log(changingStringToNumber('1 кефир, 0.5 батона'));
+// console.log(changingStringToNumber('агент 007'));
+// console.log(changingStringToNumber('а я томат'));
 
 function addToString (input, minLength, addSymbol) {
   const addLength = minLength - input.length;
@@ -47,8 +47,8 @@ function addToString (input, minLength, addSymbol) {
   return tempSymbol + tempRepeat + input;
 }
 
-console.log(addToString('1', 2, '0')); //01
-console.log(addToString('1', 4, '0')); //0001
-console.log(addToString('q', 4, 'werty')); //werq
-console.log(addToString('q', 4, 'we')); //wweq
-console.log(addToString('qwerty', 4, '0')); //qwerty
+addToString('1', 2, '0');
+addToString('1', 4, '0');
+// console.log(addToString('q', 4, 'werty')); //werq
+// console.log(addToString('q', 4, 'we')); //wweq
+// console.log(addToString('qwerty', 4, '0')); //qwerty
