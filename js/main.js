@@ -54,18 +54,17 @@ const getRandomInteger = (a, b) => {
 };
 
 const createPhotoDescription = () => {
-  const randomNameIndex = getRandomInteger(0, NAMES.length - 1);
-  const randomMessageIndex = getRandomInteger(0, MESSAGES.length - 1);
+  // const randomNameIndex = getRandomInteger(0, NAMES.length - 1);
+  // const randomMessageIndex = getRandomInteger(0, MESSAGES.length - 1);
   const PHOTO_DESCRIPTION = [];
 
   for (let i = 0; i < 25; i++) {
     const COMMENTS = {
       id: (i + 1) * 15,
       avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-      message: MESSAGES[randomMessageIndex],
-      name: NAMES[randomNameIndex],
+      message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+      name: NAMES[getRandomInteger(0, NAMES.length - 1)],
     };
-
 
     const PHOTO = {
       id: i + 1,
@@ -81,5 +80,5 @@ const createPhotoDescription = () => {
   return PHOTO_DESCRIPTION;
 };
 
-createPhotoDescription();
+console.log(createPhotoDescription());
 
