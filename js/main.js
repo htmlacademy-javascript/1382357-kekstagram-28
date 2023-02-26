@@ -54,8 +54,6 @@ const getRandomInteger = (a, b) => {
 };
 
 const createPhotoDescription = () => {
-  // const randomNameIndex = getRandomInteger(0, NAMES.length - 1);
-  // const randomMessageIndex = getRandomInteger(0, MESSAGES.length - 1);
   const PHOTO_DESCRIPTION = [];
 
   for (let i = 0; i < 25; i++) {
