@@ -80,5 +80,5 @@ const createPhotoDescription = () => {
   return PHOTO_DESCRIPTION;
 };
 
-console.log(createPhotoDescription());
+createPhotoDescription();
 
