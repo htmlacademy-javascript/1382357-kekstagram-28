@@ -57,19 +57,24 @@ const createPhotoDescription = () => {
   const PHOTO_DESCRIPTION = [];
 
   for (let i = 0; i < 25; i++) {
-    const COMMENTS = {
-      id: (i + 1) * 15,
-      avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-      message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
-      name: NAMES[getRandomInteger(0, NAMES.length - 1)],
-    };
+    const commentsCount = getRandomInteger(1, 5);
+    const COMMENTS = [];
+    for (let j = 0; j <= commentsCount; j++) {
+      const COMMENT = {
+        id: (j + 1) * 15,
+        avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+        message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
+        name: NAMES[getRandomInteger(0, NAMES.length - 1)],
+      };
+      COMMENTS.push(COMMENT);
+    }
 
     const PHOTO = {
       id: i + 1,
       url: `photos/${(i + 1)}.jpg`,
       description: DESCRIPTIONS[i],
       likes: getRandomInteger(15, 200),
-      COMMENTS,
+      comments: COMMENTS,
     };
 
     PHOTO_DESCRIPTION.push(PHOTO);
