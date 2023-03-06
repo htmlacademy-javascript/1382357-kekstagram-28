@@ -49,33 +49,33 @@ const MESSAGES = [
 ];
 
 const createPhotoDescription = () => {
-  const PHOTO_DESCRIPTION = [];
+  const photoDescription = [];
 
   for (let i = 0; i < 25; i++) {
     const commentsCount = getRandomInteger(1, 5);
-    const COMMENTS = [];
+    const comments = [];
     for (let j = 0; j <= commentsCount; j++) {
-      const COMMENT = {
+      const comment = {
         id: (j + 1) * 15,
         avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
         message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
         name: NAMES[getRandomInteger(0, NAMES.length - 1)],
       };
-      COMMENTS.push(COMMENT);
+      comments.push(comment);
     }
 
-    const PHOTO = {
+    const photo = {
       id: i + 1,
       url: `photos/${(i + 1)}.jpg`,
       description: DESCRIPTIONS[i],
       likes: getRandomInteger(15, 200),
-      comments: COMMENTS,
+      comments: comments,
     };
 
-    PHOTO_DESCRIPTION.push(PHOTO);
+    photoDescription.push(photo);
   }
 
-  return PHOTO_DESCRIPTION;
+  return photoDescription;
 };
 
 export {createPhotoDescription};
