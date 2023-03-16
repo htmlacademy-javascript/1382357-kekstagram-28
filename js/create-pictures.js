@@ -7,8 +7,10 @@ const picturesList = createPhotoDescription();
 
 picturesList.forEach((pictureItem) => {
   const pictureElement = pictureTemplate.cloneNode(true);
+  pictureElement.id = pictureItem.id;
   pictureElement.querySelector('.picture__img').src = pictureItem.url;
   pictureElement.querySelector('.picture__img').alt = pictureItem.description;
+  pictureElement.querySelector('.picture__img').dataset.id = pictureItem.id;
   pictureElement.querySelector('.picture__likes').textContent = pictureItem.likes;
   pictureElement.querySelector('.picture__comments').textContent = pictureItem.comments.length;
 
