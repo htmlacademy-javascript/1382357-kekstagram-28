@@ -11,15 +11,17 @@ const commentCount = document.querySelector('.social__comment-count');
 const commentsLoader = document.querySelector('.comments-loader');
 
 function onPicturesClick (evt) {
-  openBigPicture();
-  const pictureId = evt.target.dataset.id;
-  const currentPicture = picturesList[(pictureId - 1)];
-  bigPictureImg.querySelector('img').src = currentPicture.url;
-  bigPictureImg.querySelector('img').alt = currentPicture.description;
-  bigPicture.querySelector('.likes-count').textContent = currentPicture.likes;
-  bigPicture.querySelector('.comments-count').textContent = currentPicture.comments.length;
-  bigPicture.querySelector('.social__caption').textContent = currentPicture.description;
-  getSocialComments(currentPicture.comments);
+  if(evt.target.closest('.picture')) {
+    openBigPicture();
+    const pictureId = evt.target.dataset.id;
+    const currentPicture = picturesList[(pictureId - 1)];
+    bigPictureImg.querySelector('img').src = currentPicture.url;
+    bigPictureImg.querySelector('img').alt = currentPicture.description;
+    bigPicture.querySelector('.likes-count').textContent = currentPicture.likes;
+    bigPicture.querySelector('.comments-count').textContent = currentPicture.comments.length;
+    bigPicture.querySelector('.social__caption').textContent = currentPicture.description;
+    getSocialComments(currentPicture.comments);
+  }
 }
 
 const onDocumentKeydown = (evt) => {
@@ -49,3 +51,5 @@ picturesContainer.addEventListener('click', onPicturesClick);
 bigPictureCloseElement.addEventListener('click', () => {
   closeBigPicture();
 });
+
+export {body};
