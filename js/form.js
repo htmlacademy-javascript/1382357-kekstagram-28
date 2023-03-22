@@ -20,13 +20,6 @@ const isTextInputFocused = () =>
   document.activeElement === hashtagsInput ||
   document.activeElement === commentInput;
 
-const onDocumentKeydown = (evt) => {
-  if(evt.key === 'Escape' && !isTextInputFocused()) {
-    evt.preventDefault();
-    closeModal();
-  }
-};
-
 const openModal = () => {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -40,6 +33,13 @@ const closeModal = () => {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 };
+
+function onDocumentKeydown (evt) {
+  if(evt.key === 'Escape' && !isTextInputFocused()) {
+    evt.preventDefault();
+    closeModal();
+  }
+}
 
 const isValidTag = (tag) => hashtag.test(tag);
 const hasValidCount = (tags) => tags.length <= HASHTAGS_MAX_LENGTH;
