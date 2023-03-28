@@ -8,7 +8,7 @@ const hashtagsInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const hashtag = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
 const HASHTAGS_MAX_LENGTH = 5;
-const HASHTAGS_ERROR_TEXT = 'Начните с #, хэш-теги не должны повторяться';
+let errorText = '';
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -41,9 +41,16 @@ function onDocumentKeydown (evt) {
   }
 }
 
-const isValidTag = (tag) => hashtag.test(tag);
-const hasValidCount = (tags) => tags.length <= HASHTAGS_MAX_LENGTH;
+const isValidTag = (tag) => {
+  errorText = 'Начните с #, не используйте пробелы, спецсимволы, символы пунктуации, эмодзи';
+  return hashtag.test(tag);
+};
+const hasValidCount = (tags) => {
+  errorText = 'Количество хештегов не может превышать 5';
+  return tags.length <= HASHTAGS_MAX_LENGTH;
+};
 const hasUniqueTags = (tags) => {
+  errorText = 'Хэш-теги не должны повторяться';
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
@@ -56,9 +63,12 @@ const validateTags = (value) => {
   return hasValidCount(tags) && hasUniqueTags(tags) && tags.every(isValidTag);
 };
 
-pristine.addValidator(hashtagsInput, validateTags, HASHTAGS_ERROR_TEXT);
+const getErrorText = () => errorText;
+
+pristine.addValidator(hashtagsInput, validateTags, getErrorText);
 
 const onFormSubmit = () => {
+  // evt.preventDefault();
   pristine.validate();
 };
 
