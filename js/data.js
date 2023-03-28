@@ -52,7 +52,7 @@ const createPhotoDescription = () => {
   const photoDescription = [];
 
   for (let i = 0; i < 25; i++) {
-    const commentsCount = getRandomInteger(1, 5);
+    const commentsCount = getRandomInteger(1, 6);
     const comments = [];
     for (let j = 0; j <= commentsCount; j++) {
       const comment = {
