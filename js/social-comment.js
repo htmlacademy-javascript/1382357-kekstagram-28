@@ -5,7 +5,7 @@ const socialCommentsListFragment = document.createDocumentFragment();
 const commentsLoader = document.querySelector('.comments-loader');
 const commentsCount = document.querySelector('.comments-count');
 const commentsNumber = document.querySelector('.comments-number');
-let commentsSown = 0;
+let commentsShown = 0;
 
 const getSocialComments = (comments) => {
   socialCommentsContainer.innerHTML = '';
@@ -28,7 +28,7 @@ const getSocialComments = (comments) => {
     for(let i = COMMENTS_SHOWN_PART; i <= commentsList.length - 1; i++) {
       const comment = commentsList[i];
       comment.classList.add('hidden');
-      commentsSown = COMMENTS_SHOWN_PART;
+      commentsShown = COMMENTS_SHOWN_PART;
     }
 
   } else if(comments.length <= COMMENTS_SHOWN_PART) {
@@ -40,13 +40,13 @@ const getSocialComments = (comments) => {
 
 commentsLoader.addEventListener('click', () => {
   const commentsList = document.querySelectorAll('.social__comment');
-  commentsSown += COMMENTS_SHOWN_PART;
-  commentsNumber.textContent = commentsSown;
-  if(commentsSown < commentsList.length) {
-    for(let i = 0; i <= commentsSown - 1; i++) {
+  commentsShown += COMMENTS_SHOWN_PART;
+  commentsNumber.textContent = commentsShown;
+  if(commentsShown < commentsList.length) {
+    for(let i = 0; i <= commentsShown - 1; i++) {
       commentsList[i].classList.remove('hidden');
     }
-  } else if(commentsSown >= commentsList.length) {
+  } else if(commentsShown >= commentsList.length) {
     commentsNumber.textContent = commentsList.length;
     commentsLoader.classList.add('hidden');
     for(let i = 0; i < commentsList.length; i++) {
