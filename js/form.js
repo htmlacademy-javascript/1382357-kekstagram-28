@@ -80,3 +80,5 @@ imgUploadCancel.addEventListener('click', () => {
   closeModal();
 });
 form.addEventListener('submit', onFormSubmit);
+
+export{closeModal};
