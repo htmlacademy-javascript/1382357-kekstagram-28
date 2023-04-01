@@ -1,4 +1,6 @@
 import {body} from './big-picture.js';
+import {resetScale} from './scale.js';
+import { createSlider, removeSlider } from './effect-level-slider.js';
 
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadLabel = document.querySelector('.img-upload__label');
@@ -24,6 +26,7 @@ const openModal = () => {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  createSlider();
 };
 
 const closeModal = () => {
@@ -32,6 +35,8 @@ const closeModal = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  removeSlider();
+  resetScale();
 };
 
 function onDocumentKeydown (evt) {

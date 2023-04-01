@@ -6,6 +6,8 @@ import './form.js';
 import './api.js';
 import { sendData } from './api.js';
 import { closeModal } from './form.js';
+import './scale.js';
+import './effect-level-slider.js';
 
 setOnFormSubmit(async (data) => {
   try {
