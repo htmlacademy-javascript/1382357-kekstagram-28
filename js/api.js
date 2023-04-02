@@ -1,7 +1,7 @@
-const BASE_URL = 'https://28.javascript.pages.academy/kekstagram/data';
+const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Route = {
   GET_DATA: '/data',
-  SEND_DATA: '/',
+  SEND_DATA: '',
 };
 const Method = {
   GET: 'GET',
@@ -12,7 +12,7 @@ const ErrorText = {
   SEND_DATA: 'Не удалось отправить форму. Попробуйте ещё раз',
 };
 
-const load = (route, ErrorText, method = Method.GET, body = null) =>
+const load = (route, errorText, method = Method.GET, body = null) =>
   fetch(`${BASE_URL}${route}`, { method, body })
     .then((response) => {
       if(!response.ok) {
@@ -27,6 +27,6 @@ const load = (route, ErrorText, method = Method.GET, body = null) =>
 const getData = () => load(Route.GET_DATA, ErrorText.GET_DATA);
 
 const sendData = (body) =>
-    load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
+  load(Route.SEND_DATA, ErrorText.SEND_DATA, Method.POST, body);
 
 export{getData, sendData};
