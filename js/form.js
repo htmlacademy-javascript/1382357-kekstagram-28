@@ -1,8 +1,6 @@
 import {body} from './big-picture.js';
 import {resetScale} from './scale.js';
 import { createSlider, removeSlider } from './effect-level-slider.js';
-import { sendData } from './api.js';
-import { showAlert } from './util.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
