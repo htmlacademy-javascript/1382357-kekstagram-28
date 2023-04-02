@@ -90,21 +90,15 @@ const unblockSubmitButton = () => {
   submitButton.textContent = SubmitButtonText.IDLE;
 };
 
-const onFormSubmit = (onSuccess) => {
-  form.addEventListener('submit', (evt) => {
+const onFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
-
     const isValid = pristine.validate();
+
     if (isValid) {
       blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .catch(
-          (err) => {
-            showAlert(err.message);
-          }
-        )
-        .finally(unblockSubmitButton);
+      await cb(new FormData(form));
+      unblockSubmitButton();
     }
   });
 };
@@ -116,9 +110,5 @@ imgUploadLabel.addEventListener('click', () => {
 imgUploadCancel.addEventListener('click', () => {
   closeModal();
 });
-
-// onFormSubmit(closeModal);
-
-// form.addEventListener('submit', onFormSubmit);
 
 export{closeModal, onFormSubmit};
