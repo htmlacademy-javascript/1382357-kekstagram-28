@@ -1,5 +1,10 @@
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureContainer = document.querySelector('.pictures');
+let pictureList = {};
+
+const setPictureList = (list) => {
+  pictureList = list;
+};
 
 const renderGallery = (pictures) => {
   const pictureFragment = document.createDocumentFragment();
@@ -18,4 +23,4 @@ const renderGallery = (pictures) => {
   pictureContainer.appendChild(pictureFragment);
 };
 
-export {renderGallery};
+export {renderGallery, pictureList, setPictureList};
