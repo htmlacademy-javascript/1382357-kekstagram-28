@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { pictureList } from './create-pictures.js';
+import { picturesList } from './create-pictures.js';
 import { getSocialComments } from './social-comment.js';
 
 
@@ -14,7 +14,7 @@ function onPicturesClick (evt) {
     openBigPicture();
     const pictureId = evt.target.dataset.id;
 
-    const currentPicture = pictureList[pictureId];
+    const currentPicture = picturesList[pictureId];
     bigPictureImg.querySelector('img').src = currentPicture.url;
     bigPictureImg.querySelector('img').alt = currentPicture.description;
     bigPicture.querySelector('.likes-count').textContent = currentPicture.likes;
