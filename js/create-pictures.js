@@ -1,22 +1,26 @@
-import {createPhotoDescription} from './data.js';
-
 const pictureTemplate = document.querySelector('#picture').content;
 const pictureContainer = document.querySelector('.pictures');
-const pictureFragment = document.createDocumentFragment();
-const picturesList = createPhotoDescription();
+let picturesList = [];
 
-picturesList.forEach((pictureItem) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.id = pictureItem.id;
-  pictureElement.querySelector('.picture__img').src = pictureItem.url;
-  pictureElement.querySelector('.picture__img').alt = pictureItem.description;
-  pictureElement.querySelector('.picture__img').dataset.id = pictureItem.id;
-  pictureElement.querySelector('.picture__likes').textContent = pictureItem.likes;
-  pictureElement.querySelector('.picture__comments').textContent = pictureItem.comments.length;
+const setPictureList = (list) => {
+  picturesList = list;
+};
 
-  pictureFragment.appendChild(pictureElement);
-});
+const renderGallery = (pictures) => {
+  const pictureFragment = document.createDocumentFragment();
 
-pictureContainer.appendChild(pictureFragment);
+  pictures.forEach(({url, description, id, likes, comments}) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.id = id;
+    pictureElement.querySelector('.picture__img').src = url;
+    pictureElement.querySelector('.picture__img').alt = description;
+    pictureElement.querySelector('.picture__img').dataset.id = id;
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    pictureFragment.appendChild(pictureElement);
+  });
 
-export {picturesList};
+  pictureContainer.appendChild(pictureFragment);
+};
+
+export {renderGallery, picturesList, setPictureList};

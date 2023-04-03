@@ -2,10 +2,16 @@ import {body} from './big-picture.js';
 import {resetScale} from './scale.js';
 import { createSlider, removeSlider } from './effect-level-slider.js';
 
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
+
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadLabel = document.querySelector('.img-upload__label');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
+const submitButton = form.querySelector('.img-upload__submit');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const hashtag = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
@@ -72,9 +78,27 @@ const getErrorText = () => errorText;
 
 pristine.addValidator(hashtagsInput, validateTags, getErrorText);
 
-const onFormSubmit = () => {
-  // evt.preventDefault();
-  pristine.validate();
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const onFormSubmit = (cb) => {
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmitButton();
+      await cb(new FormData(form));
+      unblockSubmitButton();
+    }
+  });
 };
 
 imgUploadLabel.addEventListener('click', () => {
@@ -84,4 +108,5 @@ imgUploadLabel.addEventListener('click', () => {
 imgUploadCancel.addEventListener('click', () => {
   closeModal();
 });
-form.addEventListener('submit', onFormSubmit);
+
+export{closeModal, onFormSubmit};

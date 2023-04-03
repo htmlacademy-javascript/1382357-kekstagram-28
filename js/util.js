@@ -51,4 +51,39 @@ const heatEffect = {
   step: 0.1,
 };
 
-export {getRandomInteger, isEscapeKey, heatEffect, chromeEffect, sepiaEffect, marvinEffect, phobosEffect};
+const ALERT_SHOW_TIME = 5000;
+const successMessageTemplate = document.querySelector('#success').content;
+const errorMessageTemplate = document.querySelector('#error').content;
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.classList.add('alert-message');
+  alertContainer.textContent = message;
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const showSuccessMessage = () => {
+  const element = document.createElement('section');
+  element.append(successMessageTemplate.cloneNode(true));
+  document.body.append(element);
+
+  setTimeout(() => {
+    element.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const showErrorMessage = () => {
+  const element = document.createElement('section');
+  element.append(errorMessageTemplate.cloneNode(true));
+  document.body.append(element);
+
+  setTimeout(() => {
+    element.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {getRandomInteger, isEscapeKey, heatEffect, chromeEffect, sepiaEffect, marvinEffect, phobosEffect, showAlert, showErrorMessage, showSuccessMessage};
