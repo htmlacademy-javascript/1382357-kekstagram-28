@@ -8,7 +8,7 @@ import { sendData, getData } from './api.js';
 import { closeModal } from './form.js';
 import './scale.js';
 import './effect-level-slider.js';
-import { renderGallery } from './create-pictures.js';
+import {renderGallery, setPictureList} from './create-pictures.js';
 import { showAlert, showErrorMessage, showSuccessMessage } from './util.js';
 import { onFormSubmit } from './form.js';
 
@@ -25,6 +25,7 @@ onFormSubmit(async (data) => {
 getData()
   .then((pictures) => {
     renderGallery(pictures);
+    setPictureList(pictures);
   })
   .catch(
     (err) => {
