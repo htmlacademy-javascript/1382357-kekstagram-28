@@ -8,7 +8,6 @@ const setPictureList = (list) => {
 
 const renderGallery = (pictures) => {
   const pictureFragment = document.createDocumentFragment();
-
   pictures.forEach(({url, description, id, likes, comments}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.id = id;
