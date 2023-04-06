@@ -41,25 +41,27 @@ const getNewGallery = () => {
   renderGallery(currentList);
 };
 
+const debouncedGetNewGallery = debounce(getNewGallery, RERENDER_DELAY);
+
 const onButtonsClick = (evt) => {
   if(evt.target.matches('#filter-random')) {
     currentFilter = Filter.RANDOM;
     filterRandomButton.classList.add('img-filters__button--active');
     filterDefaultButton.classList.remove('img-filters__button--active');
     filterDiscussedButton.classList.remove('img-filters__button--active');
-    debounce(getNewGallery(), RERENDER_DELAY);
+    debouncedGetNewGallery();
   } else if (evt.target.matches('#filter-discussed')) {
     filterDiscussedButton.classList.add('img-filters__button--active');
     filterDefaultButton.classList.remove('img-filters__button--active');
     filterRandomButton.classList.remove('img-filters__button--active');
     currentFilter = Filter.DISCUSSED;
-    debounce(getNewGallery(), RERENDER_DELAY);
+    debouncedGetNewGallery();
   } else if(evt.target.matches('#filter-default')){
     currentFilter = Filter.DEFAULT;
     filterDefaultButton.classList.add('img-filters__button--active');
     filterDiscussedButton.classList.remove('img-filters__button--active');
     filterRandomButton.classList.remove('img-filters__button--active');
-    debounce(getNewGallery(), RERENDER_DELAY);
+    debouncedGetNewGallery();
   }
 };
 
