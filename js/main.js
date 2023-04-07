@@ -10,6 +10,7 @@ import './effect-level-slider.js';
 import {renderGallery, setPictureList} from './create-pictures.js';
 import { showAlert, showErrorMessage, showSuccessMessage } from './util.js';
 import { onFormSubmit } from './form.js';
+import './img-upload-file.js';
 import './filter.js';
 import { setImgFilters } from './filter.js';
 
