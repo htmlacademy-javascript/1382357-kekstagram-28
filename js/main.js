@@ -11,6 +11,8 @@ import {renderGallery, setPictureList} from './create-pictures.js';
 import { showAlert, showErrorMessage, showSuccessMessage } from './util.js';
 import { onFormSubmit } from './form.js';
 import './img-upload-file.js';
+import './filter.js';
+import { setImgFilters } from './filter.js';
 
 onFormSubmit(async (data) => {
   try {
@@ -25,6 +27,7 @@ onFormSubmit(async (data) => {
 getData()
   .then((pictures) => {
     renderGallery(pictures);
+    setImgFilters();
     setPictureList(pictures);
   })
   .catch(
