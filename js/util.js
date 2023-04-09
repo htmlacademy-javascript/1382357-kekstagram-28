@@ -1,9 +1,5 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
+import { onFormKeydown } from './form.js';
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const chromeEffect = {
@@ -52,6 +48,7 @@ const heatEffect = {
 };
 
 const ALERT_SHOW_TIME = 5000;
+const TIME_FOR_ESC = 2000;
 const successMessageTemplate = document.querySelector('#success').content;
 const errorMessageTemplate = document.querySelector('#error').content;
 
@@ -66,10 +63,24 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const closeMessage = (element) => {
+  document.addEventListener('click', () => {
+    element.remove();
+  });
+  document.addEventListener('keydown', () => {
+    element.remove();
+  });
+};
+
 const showSuccessMessage = () => {
   const element = document.createElement('section');
   element.append(successMessageTemplate.cloneNode(true));
   document.body.append(element);
+  const successButton = element.querySelector('.success__button');
+  successButton.addEventListener('click', () => {
+    element.remove();
+  });
+  closeMessage(element);
 
   setTimeout(() => {
     element.remove();
@@ -80,10 +91,21 @@ const showErrorMessage = () => {
   const element = document.createElement('section');
   element.append(errorMessageTemplate.cloneNode(true));
   document.body.append(element);
+  document.removeEventListener('keydown', onFormKeydown);
+  const errorButton = element.querySelector('.error__button');
+  errorButton.addEventListener('click', () => {
+    element.remove();
+  });
+
+  closeMessage(element);
 
   setTimeout(() => {
     element.remove();
   }, ALERT_SHOW_TIME);
+
+  setTimeout(() => {
+    document.addEventListener('keydown', onFormKeydown);
+  }, TIME_FOR_ESC);
 };
 
 function debounce (callback, timeoutDelay = 500) {
@@ -95,4 +117,4 @@ function debounce (callback, timeoutDelay = 500) {
   };
 }
 
-export {getRandomInteger, isEscapeKey, heatEffect, chromeEffect, sepiaEffect, marvinEffect, phobosEffect, showAlert, showErrorMessage, showSuccessMessage, debounce};
+export {isEscapeKey, heatEffect, chromeEffect, sepiaEffect, marvinEffect, phobosEffect, showAlert, showErrorMessage, showSuccessMessage, debounce};

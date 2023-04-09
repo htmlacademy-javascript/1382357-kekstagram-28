@@ -1,4 +1,5 @@
-import { picturesList, renderGallery} from './create-pictures.js';
+import { renderGallery} from './create-pictures.js';
+import { latestPictures } from './main.js';
 import { debounce } from './util.js';
 const RERENDER_DELAY = 500;
 const PICTURES_COUNT = 10;
@@ -22,11 +23,11 @@ const sortByComments = (pictureA, pictureB) =>
 const getFilteredPictures = () => {
   switch (currentFilter) {
     case Filter.RANDOM:
-      return [...picturesList].sort(sortRandomly).slice(0, PICTURES_COUNT);
+      return [...latestPictures].sort(sortRandomly).slice(0, PICTURES_COUNT);
     case Filter.DISCUSSED:
-      return [...picturesList].sort(sortByComments);
+      return [...latestPictures].sort(sortByComments);
     default:
-      return [...picturesList];
+      return [...latestPictures];
   }
 };
 
