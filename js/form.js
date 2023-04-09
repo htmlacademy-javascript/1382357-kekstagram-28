@@ -1,6 +1,7 @@
 import {body} from './big-picture.js';
 import {resetScale} from './scale.js';
 import { createSlider, removeSlider } from './effect-level-slider.js';
+import { isEscapeKey } from './util.js';
 
 const SubmitButtonText = {
   IDLE: 'Сохранить',
@@ -8,7 +9,6 @@ const SubmitButtonText = {
 };
 
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const imgUploadLabel = document.querySelector('.img-upload__label');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
 const form = document.querySelector('.img-upload__form');
 const submitButton = form.querySelector('.img-upload__submit');
@@ -16,7 +16,11 @@ const hashtagsInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 const hashtag = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/i;
 const HASHTAGS_MAX_LENGTH = 5;
+const HASHTAGS_RULE_MESSAGE = 'Начните с #, не используйте пробелы, спецсимволы, символы пунктуации, эмодзи';
+const HASHTAGS_LENGTH_MESSAGE = 'Количество хештегов не может превышать 5';
+const HASHTAGS_UNIQUE_MESSAGE = 'Хэш-теги не должны повторяться';
 let errorText = '';
+const fileInput = document.querySelector('#upload-file');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -31,7 +35,7 @@ const isTextInputFocused = () =>
 const openModal = () => {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.addEventListener('keydown', onFormKeydown);
   createSlider();
 };
 
@@ -40,28 +44,28 @@ const closeModal = () => {
   pristine.reset();
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', onFormKeydown);
   removeSlider();
   resetScale();
 };
 
-function onDocumentKeydown (evt) {
-  if(evt.key === 'Escape' && !isTextInputFocused()) {
+function onFormKeydown (evt) {
+  if(isEscapeKey && !isTextInputFocused()) {
     evt.preventDefault();
     closeModal();
   }
 }
 
 const isValidTag = (tag) => {
-  errorText = 'Начните с #, не используйте пробелы, спецсимволы, символы пунктуации, эмодзи';
+  errorText = HASHTAGS_RULE_MESSAGE;
   return hashtag.test(tag);
 };
 const hasValidCount = (tags) => {
-  errorText = 'Количество хештегов не может превышать 5';
+  errorText = HASHTAGS_LENGTH_MESSAGE;
   return tags.length <= HASHTAGS_MAX_LENGTH;
 };
 const hasUniqueTags = (tags) => {
-  errorText = 'Хэш-теги не должны повторяться';
+  errorText = HASHTAGS_UNIQUE_MESSAGE;
   const lowerCaseTags = tags.map((tag) => tag.toLowerCase());
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
@@ -78,12 +82,12 @@ const getErrorText = () => errorText;
 
 pristine.addValidator(hashtagsInput, validateTags, getErrorText);
 
-const blockSubmitButton = () => {
+const getSubmitButtonBlocked = () => {
   submitButton.disabled = true;
   submitButton.textContent = SubmitButtonText.SENDING;
 };
 
-const unblockSubmitButton = () => {
+const getSubmitButtonUnblocked = () => {
   submitButton.disabled = false;
   submitButton.textContent = SubmitButtonText.IDLE;
 };
@@ -94,19 +98,23 @@ const onFormSubmit = (cb) => {
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmitButton();
+      getSubmitButtonBlocked();
       await cb(new FormData(form));
-      unblockSubmitButton();
+      getSubmitButtonUnblocked();
     }
   });
 };
 
-imgUploadLabel.addEventListener('click', () => {
+const onFileInputChange = () => {
   openModal();
-});
+};
 
-imgUploadCancel.addEventListener('click', () => {
+const onImgUploadClick = () => {
   closeModal();
-});
+};
 
-export{closeModal, onFormSubmit};
+fileInput.addEventListener('change', onFileInputChange);
+
+imgUploadCancel.addEventListener('click', onImgUploadClick);
+
+export{closeModal, onFormSubmit, form, onFormKeydown};
